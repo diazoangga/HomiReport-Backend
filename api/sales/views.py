@@ -73,7 +73,15 @@ class DailySalesViewSets(viewsets.ViewSet):
         serializer = DailySalesSerializer(new_sales)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
-    @action(detail=False, methods=['delete'])
+    def destroy(self, request, pk=None):
+        sales = DailySales.objects.all()
+        sale = get_object_or_404(sales, pk=pk)
+        sale.delete()
+
+        return Response({"Status": "Successfully delete id: {id}"}, status=status.HTTP_204_NO_CONTENT)
+
+    
+    @action(detail=False, methods=['delete', 'get'])
     def destroy_all(self, request):
         sales = DailySales.objects.all()
         sales.delete()

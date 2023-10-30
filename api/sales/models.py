@@ -9,6 +9,14 @@ class DailySales(models.Model):
     def __str__(self):
         return f'{self.time} --> {self.sales}'
     
-    def save(self):
-        super().save()
+    # def save(self):
+    #     super().save()
     
+class SaleTransaction(models.Model):
+    time = models.DateField(blank=False)
+    customer_id = models.IntegerField(blank=True)
+    product_id = models.IntegerField(blank=False)
+    number_sales = models.IntegerField(blank=False)
+
+    def __str__(self):
+        return f'{self.time} --> {self.number_sales}'
